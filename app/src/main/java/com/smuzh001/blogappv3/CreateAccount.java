@@ -22,6 +22,7 @@ public class CreateAccount extends AppCompatActivity {
     private TextView emailTextView;
     private TextView passwordTextView;
     private TextView confirmTextView;
+    private TextView nameView;
     private Button loginButton;
     public FirebaseAuth auth;
     public FirebaseDatabase database;;
@@ -37,6 +38,7 @@ public class CreateAccount extends AppCompatActivity {
         confirmTextView = (TextView) findViewById(R.id.confirmField);
         //button
         loginButton = findViewById(R.id.CreateAccButton);
+        nameView = findViewById(R.id.nameField);
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
