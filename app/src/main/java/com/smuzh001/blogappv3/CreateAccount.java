@@ -73,6 +73,7 @@ public class CreateAccount extends AppCompatActivity {
                                 //switch to main_menu Activity
                                 Intent intent = new Intent(CreateAccount.this, BlogFeed.class);
                                 startActivity(intent);
+                                finish();
 
                             } else {
                                 // If sign in fails, display a message to the user.

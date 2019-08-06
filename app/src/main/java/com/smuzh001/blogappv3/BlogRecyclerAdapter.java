@@ -9,15 +9,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
+import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 //think of the RecycleView you did for MindTapp.
+// It will help adapt the data into our RecycleView.
 public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapter.ViewHolder> {
 
     private Context context;
     private List<Blog> blogList;
+
+    public BlogRecyclerAdapter(Context context, List<Blog> blogList) {
+        this.context = context;
+        this.blogList = blogList;
+    }
 
     @NonNull
     @Override
@@ -37,21 +46,28 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         viewHolder.title.setText(blog.getTitle());
         viewHolder.desc.setText(blog.getDesc());
-        viewHolder.timestamp.setText(blog.getDesc());
+        //viewHolder.timestamp.setText(blog.getDesc());
 
         //system time needs to be reformatted to March 3, 2014.
-        java.text.DateFormat dateFormat = java.text.DateFormat.getDateInstance();
-        String formattedDate = dateFormat.format(new Date(Long.valueOf(blog.getTimestamp())).getTime());
+        //java.text.DateFormat dateFormat = java.text.DateFormat.getDateInstance();
+        //String formattedDate = dateFormat.format(new Date(Long.valueOf(blog.getTimestamp())).getTime());
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+
+        //String formattedDate = "10/10/10";
+        String formattedDate = formatter.format(date);
         viewHolder.timestamp.setText(formattedDate);
 
         imageUrl = blog.getImage();
         //TODO: use Picasso library to load image
+        Picasso.get().load(imageUrl).into(viewHolder.image);
     }
 
     @Override
     public int getItemCount() {
         return blogList.size();
     }
+
     //this class will substantiate our widgets for our post.
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
